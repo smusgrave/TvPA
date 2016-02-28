@@ -1,4 +1,4 @@
-package com.smusgrave.app.baseandroid;
+package com.smusgrave.app.tvpa;
 
 import org.junit.Test;
 
