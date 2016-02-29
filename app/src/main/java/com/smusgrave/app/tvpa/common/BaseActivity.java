@@ -3,9 +3,9 @@ package com.smusgrave.app.tvpa.common;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.smusgrave.app.tvpa.App;
@@ -17,9 +17,8 @@ import icepick.Icepick;
 
 public abstract class BaseActivity extends AppCompatActivity implements BasePresenter.View {
 
-    private Toolbar toolbar;
-    protected Fragment fragment;
-    private ProgressDialog progressDialog;
+    protected Toolbar toolbar;
+    protected ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +28,18 @@ public abstract class BaseActivity extends AppCompatActivity implements BasePres
         injectDependencies();
         initializePresenter();
         injectViews();
-        initializeToolbar();
     }
 
-    protected void setupFragment(String tag) {
-        if (findViewById(R.id.fragment_container) != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, fragment, tag)
-                    .commit();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -88,10 +89,14 @@ public abstract class BaseActivity extends AppCompatActivity implements BasePres
         Icepick.saveInstanceState(this, outState);
     }
 
-    private void initializeToolbar() {
+    protected void initializeToolbar(boolean displayUp, int title) {
         toolbar = ButterKnife.findById(this, R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+            if (displayUp) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
         }
     }
 

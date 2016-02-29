@@ -1,5 +1,7 @@
 package com.smusgrave.app.tvpa.ui.search;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import com.smusgrave.app.tvpa.R;
 import com.smusgrave.app.tvpa.model.Show;
+import com.smusgrave.app.tvpa.ui.showdetails.ShowDetailsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -52,6 +55,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     .load(show.image.medium)
                     .into(holder.image);
         }
+
+        holder.view.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = ShowDetailsActivity.getIntent(context, show.id, show.name, show.summary);
+            context.startActivity(intent);
+        });
+
     }
 
     @Override
@@ -76,13 +86,21 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        final View view;
         @Bind(R.id.search_show_image) ImageView image;
         @Bind(R.id.search_show_name) TextView name;
         @Bind(R.id.search_show_summary) TextView summary;
 
         public ViewHolder(View view) {
             super(view);
+            this.view = view;
             ButterKnife.bind(this, view);
         }
+    }
+
+    public static interface ClickListener<Show> {
+
+        public void onItemClick(View view, Show show);
+
     }
 }

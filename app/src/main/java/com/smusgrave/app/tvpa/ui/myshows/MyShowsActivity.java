@@ -21,12 +21,12 @@ public class MyShowsActivity extends BaseActivity implements MyShowsActivityPres
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        initializeToolbar(false, R.string.title_my_shows);
     }
 
     @Override
     protected int getLayout() {
-        return R.layout.my_shows_activity;
+        return R.layout.activity_my_shows;
     }
 
     @Override

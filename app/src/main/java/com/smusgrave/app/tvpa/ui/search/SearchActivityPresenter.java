@@ -25,18 +25,11 @@ public class SearchActivityPresenter extends BasePresenter<SearchActivityPresent
         getView().clearShows();
         tvMazeService.getShows(text)
                 .flatMap(Observable::from)
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        showQuery -> {
-                            getView().addShow(showQuery.show);
-                            Timber.d("Show : " + showQuery.show.name);
-                        },
-                        throwable -> {
-                            getView().showMessage("Error: " + throwable.toString(), false);
-                            Timber.e(throwable.getMessage());
-                        },
-                        () -> Timber.d("Complete!")
+                        showQuery -> getView().addShow(showQuery.show),
+                        throwable -> Timber.e(throwable.getMessage())
                 );
     }
 

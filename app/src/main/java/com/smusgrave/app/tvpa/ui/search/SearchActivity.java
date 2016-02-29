@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.smusgrave.app.tvpa.R;
@@ -23,7 +24,6 @@ public class SearchActivity extends BaseActivity implements SearchActivityPresen
 
     @Inject SearchActivityPresenter presenter;
 
-    @Bind(R.id.et_search) EditText searchET;
     @Bind(R.id.search_recycler) RecyclerView recycler;
 
     private SearchAdapter adapter;
@@ -35,6 +35,8 @@ public class SearchActivity extends BaseActivity implements SearchActivityPresen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initializeToolbar(true, R.string.title_search);
+
         adapter = new SearchAdapter();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(recycler.getContext());
         recycler.setLayoutManager(layoutManager);
@@ -43,7 +45,7 @@ public class SearchActivity extends BaseActivity implements SearchActivityPresen
 
     @Override
     protected int getLayout() {
-        return R.layout.search_activity;
+        return R.layout.activity_search;
     }
 
     @Override
@@ -66,9 +68,11 @@ public class SearchActivity extends BaseActivity implements SearchActivityPresen
     }
 
     @OnEditorAction(R.id.et_search)
-    public boolean searchAction(int actionId) {
+    public boolean searchAction(EditText v, int actionId) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-            presenter.performSearch(searchET.getText().toString());
+            presenter.performSearch(v.getText().toString());
+            ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(v.getWindowToken(), 0);
             return true;
         }
         return false;

@@ -4,4 +4,10 @@
     <string name="search_hint">Search for a show</string>
     <string name="search_icon_content_description">Search icon</string>
     <string name="show_image">Show image</string>
+
+    <!-- ACTIVITY TITLES -->
+    <string name="title_my_shows">My Shows</string>
+    <string name="title_search">Search</string>
+    <string name="title_show_details">Show Details</string>
+
 </resources>
