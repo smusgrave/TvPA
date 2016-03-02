@@ -2,9 +2,13 @@ package com.smusgrave.app.tvpa.ui.showdetails;
 
 import com.smusgrave.app.tvpa.common.BasePresenter;
 
+import rx.Subscription;
+
 public class ShowDetailsActivityPresenter extends BasePresenter<ShowDetailsActivityPresenter.View> {
 
-    void updateUI() {
+    private Subscription subscription;
+
+    void updateUI(int showId) {
 
     }
 

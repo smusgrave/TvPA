@@ -20,16 +20,12 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsActi
     @Inject ShowDetailsActivityPresenter presenter;
 
     public static final String EXTRA_SHOW_DETAILS_ID = "com.smusgrave.app.tvpa.EXTRA_SHOW_DETAILS_ID";
-    public static final String TEMP_EXTRA_TITLE = "show_title";
-    public static final String TEMP_EXTRA_SUMMARY = "show_summary";
 
     @Bind(R.id.details_show_summary) TextView summary;
 
-    public static Intent getIntent(Context context, int id, String title, String summary) {
+    public static Intent getIntent(Context context, int id) {
         Intent intent = new Intent(context, ShowDetailsActivity.class);
         intent.putExtra(EXTRA_SHOW_DETAILS_ID, id);
-        intent.putExtra(TEMP_EXTRA_TITLE, title);
-        intent.putExtra(TEMP_EXTRA_SUMMARY, summary);
         return intent;
     }
 
@@ -38,9 +34,8 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsActi
         super.onCreate(savedInstanceState);
         initializeToolbar(true, R.string.title_show_details);
 
-        // TODO These extras passed in for testing, eventually only id should be passed as extra
-        setTitle(getIntent().getStringExtra(TEMP_EXTRA_TITLE));
-        setSummary(getIntent().getStringExtra(TEMP_EXTRA_SUMMARY));
+        int showId = getIntent().getIntExtra(EXTRA_SHOW_DETAILS_ID, 0);
+        presenter.updateUI(showId);
     }
 
     @Override
