@@ -3,17 +3,22 @@ package com.smusgrave.app.tvpa.ui.showdetails;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.text.Html;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.smusgrave.app.tvpa.R;
 import com.smusgrave.app.tvpa.common.BaseActivity;
 import com.smusgrave.app.tvpa.common.BasePresenter;
 import com.smusgrave.app.tvpa.di.AppComponent;
+import com.smusgrave.app.tvpa.model.Show;
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 public class ShowDetailsActivity extends BaseActivity implements ShowDetailsActivityPresenter.View {
 
@@ -21,7 +26,12 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsActi
 
     public static final String EXTRA_SHOW_DETAILS_ID = "com.smusgrave.app.tvpa.EXTRA_SHOW_DETAILS_ID";
 
-    @Bind(R.id.details_show_summary) TextView summary;
+    private int showId;
+
+    @Bind(R.id.backdrop) ImageView backdrop;
+    @Bind(R.id.details_show_title) TextView showTitle;
+    @Bind(R.id.details_show_summary) TextView showSummary;
+    @Bind(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
 
     public static Intent getIntent(Context context, int id) {
         Intent intent = new Intent(context, ShowDetailsActivity.class);
@@ -34,8 +44,8 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsActi
         super.onCreate(savedInstanceState);
         initializeToolbar(true, R.string.title_show_details);
 
-        int showId = getIntent().getIntExtra(EXTRA_SHOW_DETAILS_ID, 0);
-        presenter.updateUI(showId);
+        showId = getIntent().getIntExtra(EXTRA_SHOW_DETAILS_ID, 0);
+        presenter.init(showId);
     }
 
     @Override
@@ -63,14 +73,21 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsActi
     }
 
     @Override
-    public void setTitle(String title) {
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(title);
+    public void updateUI(Show show) {
+
+        if (collapsingToolbarLayout != null) {
+            collapsingToolbarLayout.setTitle(show.name);
         }
+
+        showTitle.setText(show.name);
+        showSummary.setText(Html.fromHtml(show.summary));
+
+        Picasso.with(this).load(show.image.medium).into(backdrop);
+
     }
 
-    @Override
-    public void setSummary(String summary) {
-        this.summary.setText(Html.fromHtml(summary));
+    @OnClick(R.id.fab)
+    void fabClicked() {
+        presenter.addToMyShows(showId);
     }
 }

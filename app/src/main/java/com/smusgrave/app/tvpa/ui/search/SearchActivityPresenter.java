@@ -25,15 +25,21 @@ public class SearchActivityPresenter extends BasePresenter<SearchActivityPresent
     void performSearch(String text) {
 
         getView().clearShows();
-
+        getView().showProgress("Searching...");
         subscription = tvMazeService.getShows(text)
                 .concatMap(Observable::from)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        showQuery -> getView().addShow(showQuery.show),
-                        throwable -> Timber.e(throwable.getMessage()),
-                        () -> {}
+                        showQuery -> {
+                            getView().addShow(showQuery.show);
+                            getView().hideProgress();
+                        },
+                        throwable -> {
+                            Timber.e(throwable.toString());
+                            getView().showMessage(throwable.getMessage(), true);
+                            getView().hideProgress();
+                        }
                 );
     }
 

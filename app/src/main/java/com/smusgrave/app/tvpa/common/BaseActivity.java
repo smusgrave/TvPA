@@ -91,13 +91,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BasePres
         Icepick.saveInstanceState(this, outState);
     }
 
-    protected void initializeToolbar(boolean displayUp, int title) {
+    protected void initializeToolbar(boolean displayUpNavigation, int titleResourceId) {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(title);
-            if (displayUp) {
+            getSupportActionBar().setTitle(titleResourceId);
+            if (displayUpNavigation) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }
         }
