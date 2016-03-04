@@ -1,16 +1,5 @@
-# baseandroid
+# TvPA - TV Personal Assistant
 
-Base/skeleton MVP Android App template with Dagger 2.
+Basic Android dummy app used for my own training, trying out new things etc.
 
-For UI, uses package per feature to keep things clean and modular.
-
-### Includes dependencies for:
-
-* Dagger 2
-* Butterknife
-* Retrofit
-* RxJava/RxAndroid
-* Icepick
-* Leakcanary
-* Picasso
-* Timber
+Uses [TVmaze API](http://www.tvmaze.com/api)
