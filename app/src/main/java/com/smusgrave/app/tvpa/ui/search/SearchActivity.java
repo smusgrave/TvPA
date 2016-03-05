@@ -14,6 +14,7 @@ import com.smusgrave.app.tvpa.common.BaseActivity;
 import com.smusgrave.app.tvpa.common.BasePresenter;
 import com.smusgrave.app.tvpa.di.AppComponent;
 import com.smusgrave.app.tvpa.model.Show;
+import com.smusgrave.app.tvpa.ui.adapter.ShowRecyclerAdapter;
 
 import javax.inject.Inject;
 
@@ -26,7 +27,7 @@ public class SearchActivity extends BaseActivity implements SearchActivityPresen
 
     @Bind(R.id.search_recycler) RecyclerView recycler;
 
-    private SearchAdapter adapter;
+    private ShowRecyclerAdapter adapter;
 
     public static Intent getIntent(Context context) {
         return new Intent(context, SearchActivity.class);
@@ -37,7 +38,7 @@ public class SearchActivity extends BaseActivity implements SearchActivityPresen
         super.onCreate(savedInstanceState);
         initializeToolbar(true, R.string.title_search);
 
-        adapter = new SearchAdapter();
+        adapter = new ShowRecyclerAdapter();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(recycler.getContext());
         recycler.setLayoutManager(layoutManager);
         recycler.setAdapter(adapter);

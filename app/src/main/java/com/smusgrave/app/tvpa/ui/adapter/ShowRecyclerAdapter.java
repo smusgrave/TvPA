@@ -1,4 +1,4 @@
-package com.smusgrave.app.tvpa.ui.search;
+package com.smusgrave.app.tvpa.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,15 +21,15 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+public class ShowRecyclerAdapter extends RecyclerView.Adapter<ShowRecyclerAdapter.ViewHolder> {
 
     private List<Show> shows;
 
-    public SearchAdapter() {
+    public ShowRecyclerAdapter() {
         this.shows = new ArrayList<>();
     }
 
-    public SearchAdapter(List<Show> shows) {
+    public ShowRecyclerAdapter(List<Show> shows) {
         this.shows = shows;
     }
 
@@ -96,11 +96,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             this.view = view;
             ButterKnife.bind(this, view);
         }
-    }
-
-    public static interface ClickListener<Show> {
-
-        public void onItemClick(View view, Show show);
 
     }
+
 }
