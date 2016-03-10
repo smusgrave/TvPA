@@ -44,21 +44,21 @@ public class ShowRecyclerAdapter extends RecyclerView.Adapter<ShowRecyclerAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         Show show = shows.get(position);
 
-        holder.name.setText(show.name);
-        holder.summary.setText(Html.fromHtml(show.summary));
+        holder.name.setText(show.getName());
+        holder.summary.setText(Html.fromHtml(show.getSummary()));
 
-        if (show.image == null) {
+        if (show.getImage() == null) {
             holder.image.setVisibility(View.GONE);
         } else {
             holder.image.setVisibility(View.VISIBLE);
             Picasso.with(holder.image.getContext())
-                    .load(show.image.medium)
+                    .load(show.getImage().getMedium())
                     .into(holder.image);
         }
 
         holder.view.setOnClickListener(v -> {
             Context context = v.getContext();
-            Intent intent = ShowDetailsActivity.getIntent(context, show.id);
+            Intent intent = ShowDetailsActivity.getIntent(context, show.getId());
             context.startActivity(intent);
         });
 

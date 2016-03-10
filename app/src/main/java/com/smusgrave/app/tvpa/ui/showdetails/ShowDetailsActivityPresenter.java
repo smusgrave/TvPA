@@ -43,7 +43,7 @@ public class ShowDetailsActivityPresenter extends BasePresenter<ShowDetailsActiv
 
     void addToMyShows(int showId) {
 
-        getView().showMessage("Added to My Shows " + showId, false);
+        getView().showMessage("TODO: Add to My Shows " + showId, false);
 
     }
 

@@ -32,7 +32,7 @@ public class SearchActivityPresenter extends BasePresenter<SearchActivityPresent
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         showQuery -> {
-                            getView().addShow(showQuery.show);
+                            getView().addShow(showQuery.getShow());
                             getView().hideProgress();
                         },
                         throwable -> {

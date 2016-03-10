@@ -76,13 +76,13 @@ public class ShowDetailsActivity extends BaseActivity implements ShowDetailsActi
     public void updateUI(Show show) {
 
         if (collapsingToolbarLayout != null) {
-            collapsingToolbarLayout.setTitle(show.name);
+            collapsingToolbarLayout.setTitle(show.getName());
         }
 
-        showTitle.setText(show.name);
-        showSummary.setText(Html.fromHtml(show.summary));
+        showTitle.setText(show.getName());
+        showSummary.setText(Html.fromHtml(show.getSummary()));
 
-        Picasso.with(this).load(show.image.medium).into(backdrop);
+        Picasso.with(this).load(show.getImage().getMedium()).into(backdrop);
 
     }
 

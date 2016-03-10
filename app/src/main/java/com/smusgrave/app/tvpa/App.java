@@ -12,6 +12,8 @@ import timber.log.Timber;
 
 public class App extends Application {
 
+    public static final String PREF_KEY_MY_SHOWS = "my_shows";
+
     private AppComponent component;
 
     @Override
